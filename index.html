@@ -18,20 +18,26 @@ p {
     <h2 id="end"></h2>
     <script>
     // The data/time we want to countdown to
-    var countDownDate = new Date("Apr 10, 2023 23:44:00").getTime();
-    //var countDownDate = new Date(Date.UTC(2023, 04, 11, 6, 44)).getTime();
+    var countDownDate = new Date(Date.UTC(2023, 3, 12, 06, 48));
 
     // Run myfunc every second
     var myfunc = setInterval(function() {
 
     var now = new Date().getTime();
-    var timeleft = countDownDate - now;
+    if (countDownDate > now) {
+      var timeleft = countDownDate - now;
+      var showText = "Time Until Launch";
+    } else {
+      var timeleft = now - countDownDate;
+      var showTexct = "Time Elapsed Since Launch"
+    }
         
     // Calculating the days, hours, minutes and seconds left
     var days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
     var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    var resultBox = document.getElementById("showText");
         
     // Result is output to the specific element
     document.getElementById("days").innerHTML = days + "d:"
@@ -39,7 +45,7 @@ p {
     document.getElementById("mins").innerHTML = minutes + "m:" 
     document.getElementById("secs").innerHTML = seconds + "s" 
         
-    // Display the message when countdown is over
+    // Display the time until countdown
     if (timeleft < 0) {
         clearInterval(myfunc);
         document.getElementById("days").innerHTML = ""
